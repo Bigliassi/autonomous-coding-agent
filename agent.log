@@ -3,3 +3,138 @@
 2025-07-18 13:41:23,029 - logger - ERROR - No model handlers available!
 2025-07-18 13:41:24,377 - logger - INFO - Using existing Git repository at C:\Users\bigli\Desktop\BigAgent
 2025-07-18 13:41:48,522 - logger - INFO - Loaded 0 persisted tasks
+2025-07-18 14:21:30,964 - logger - INFO - Initialized ollama model handler
+2025-07-18 14:21:43,084 - logger - INFO - Loaded 0 persisted tasks
+2025-07-18 14:22:41,521 - logger - INFO - Loaded 0 persisted tasks
+2025-07-18 14:22:41,572 - logger - ERROR - Failed to log task creation: DatabaseLogger.log_event() missing 1 required positional argument: 'message'
+2025-07-18 14:23:03,254 - logger - INFO - Loaded 1 persisted tasks
+2025-07-18 14:28:42,627 - logger - INFO - Loaded 2 persisted tasks
+2025-07-18 14:30:12,222 - logger - INFO - Initialized ollama model handler
+2025-07-18 14:30:12,812 - logger - INFO - Using existing Git repository at C:\Users\bigli\Desktop\BigAgent
+2025-07-18 14:30:13,260 - logger - INFO - Initializing Autonomous Coding Agent...
+2025-07-18 14:30:13,264 - logger - INFO - Loaded 2 persisted tasks
+2025-07-18 14:30:13,301 - logger - INFO - Agent initialization completed
+2025-07-18 14:30:13,301 - logger - INFO - Starting Flask server on 127.0.0.1:5000
+2025-07-18 14:30:13,301 - logger - INFO - Flask server started on 127.0.0.1:5000
+2025-07-18 14:30:13,301 - logger - INFO - File watcher started for tasks.yaml
+2025-07-18 14:30:13,358 - logger - INFO - Background tasks started
+2025-07-18 14:30:13,538 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-18 14:30:13,548 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 14:30:13,801 - logger - INFO - Loaded 5 tasks from tasks.yaml
+2025-07-18 14:30:13,995 - logger - INFO -    Dashboard: http://127.0.0.1:5000
+2025-07-18 14:30:13,995 - logger - INFO -    Workers: 3
+2025-07-18 14:30:13,995 - logger - INFO -    Model: ollama
+2025-07-18 14:30:16,350 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:18,682 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:21,243 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:23,849 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:26,415 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:28,768 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:31,158 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:33,510 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:35,888 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:38,510 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:41,120 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:41,796 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:30:41] "GET / HTTP/1.1" 200 -
+2025-07-18 14:30:42,358 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:30:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-18 14:30:43,904 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:46,309 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:48,808 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:51,210 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:53,613 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:55,969 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:30:58,312 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:00,715 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:03,126 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:05,507 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:07,863 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:10,142 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:12,529 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:14,937 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:15,240 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:31:15] "GET / HTTP/1.1" 200 -
+2025-07-18 14:31:17,208 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:19,514 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:21,829 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:31:48,979 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:31:48] "GET / HTTP/1.1" 200 -
+2025-07-18 14:32:06,521 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:32:06] "GET /settings HTTP/1.1" 200 -
+2025-07-18 14:32:28,277 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:32:28] "GET / HTTP/1.1" 200 -
+2025-07-18 14:33:02,550 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:33:02] "GET / HTTP/1.1" 200 -
+2025-07-18 14:33:36,708 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:33:36] "GET / HTTP/1.1" 200 -
+2025-07-18 14:34:11,722 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:34:11] "GET / HTTP/1.1" 200 -
+2025-07-18 14:34:45,757 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:34:45] "GET / HTTP/1.1" 200 -
+2025-07-18 14:35:22,622 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:35:22] "GET / HTTP/1.1" 200 -
+2025-07-18 14:36:14,093 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:36:14] "GET / HTTP/1.1" 200 -
+2025-07-18 14:37:09,915 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:37:09] "GET / HTTP/1.1" 200 -
+2025-07-18 14:37:54,413 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:37:54] "GET / HTTP/1.1" 200 -
+2025-07-18 14:38:40,371 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:38:40] "GET / HTTP/1.1" 200 -
+2025-07-18 14:39:23,386 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:39:23] "GET / HTTP/1.1" 200 -
+2025-07-18 14:39:58,743 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:39:58] "GET / HTTP/1.1" 200 -
+2025-07-18 14:40:45,327 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:40:45] "GET / HTTP/1.1" 200 -
+2025-07-18 14:41:26,974 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:41:26] "GET / HTTP/1.1" 200 -
+2025-07-18 14:42:12,838 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:42:12] "GET / HTTP/1.1" 200 -
+2025-07-18 14:42:54,326 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:42:54] "GET / HTTP/1.1" 200 -
+2025-07-18 14:43:34,563 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:43:34] "GET / HTTP/1.1" 200 -
+2025-07-18 14:44:15,270 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:44:15] "GET / HTTP/1.1" 200 -
+2025-07-18 14:44:52,770 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:44:52] "GET / HTTP/1.1" 200 -
+2025-07-18 14:45:26,628 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:45:26] "GET / HTTP/1.1" 200 -
+2025-07-18 14:46:02,396 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:46:02] "GET / HTTP/1.1" 200 -
+2025-07-18 14:46:43,821 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:46:43] "GET / HTTP/1.1" 200 -
+2025-07-18 14:47:17,947 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:47:17] "GET / HTTP/1.1" 200 -
+2025-07-18 14:47:55,731 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:47:55] "GET / HTTP/1.1" 200 -
+2025-07-18 14:48:42,310 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:48:42] "GET / HTTP/1.1" 200 -
+2025-07-18 14:48:51,942 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:48:51] "GET / HTTP/1.1" 200 -
+2025-07-18 14:49:04,418 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:49:04] "GET / HTTP/1.1" 200 -
+2025-07-18 14:49:21,978 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:49:21] "GET /settings HTTP/1.1" 200 -
+2025-07-18 14:49:47,562 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:49:47] "GET / HTTP/1.1" 200 -
+2025-07-18 14:50:23,680 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:50:23] "GET / HTTP/1.1" 200 -
+2025-07-18 14:51:00,440 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:51:00] "GET / HTTP/1.1" 200 -
+2025-07-18 14:51:39,017 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:51:39] "GET / HTTP/1.1" 200 -
+2025-07-18 14:52:17,218 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:52:17] "GET / HTTP/1.1" 200 -
+2025-07-18 14:52:52,709 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:52:52] "GET / HTTP/1.1" 200 -
+2025-07-18 14:53:33,334 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:53:33] "GET / HTTP/1.1" 200 -
+2025-07-18 14:54:15,299 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:54:15] "GET / HTTP/1.1" 200 -
+2025-07-18 14:54:35,869 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:54:35] "GET /api/status HTTP/1.1" 200 -
+2025-07-18 14:54:58,021 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:54:58] "GET / HTTP/1.1" 200 -
+2025-07-18 14:55:02,799 - logger - INFO - Initialized ollama model handler
+2025-07-18 14:55:08,521 - logger - INFO - Using existing Git repository at C:\Users\bigli\Desktop\BigAgent
+2025-07-18 14:55:12,928 - logger - INFO - Initializing Autonomous Coding Agent...
+2025-07-18 14:55:12,932 - logger - INFO - Loaded 0 persisted tasks
+2025-07-18 14:55:12,959 - logger - INFO - Agent initialization completed
+2025-07-18 14:55:13,024 - logger - INFO - Starting Flask server on 127.0.0.1:5000
+2025-07-18 14:55:13,024 - logger - INFO - Flask server started on 127.0.0.1:5000
+2025-07-18 14:55:13,192 - logger - INFO - File watcher started for tasks.yaml
+2025-07-18 14:55:13,327 - logger - INFO - Background tasks started
+2025-07-18 14:55:13,913 - logger - INFO - Loaded 5 tasks from tasks.yaml
+2025-07-18 14:55:14,767 - logger - INFO -    Dashboard: http://127.0.0.1:5000
+2025-07-18 14:55:14,768 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-18 14:55:14,778 - logger - INFO -    Workers: 3
+2025-07-18 14:55:14,781 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-18 14:55:14,789 - logger - INFO -    Model: ollama
+2025-07-18 14:55:17,674 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:18,432 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:55:18] "GET /api/status HTTP/1.1" 200 -
+2025-07-18 14:55:20,383 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:23,281 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:26,248 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:29,493 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:32,835 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:35,392 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:38,636 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:41,805 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:45,163 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:48,576 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:55:48] "GET / HTTP/1.1" 200 -
+2025-07-18 14:55:49,131 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:52,187 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:55,381 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:55:58,109 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:01,186 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:03,807 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:06,881 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:09,702 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:11,950 - logger - INFO - Initialized ollama model handler
+2025-07-18 14:56:12,214 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:14,769 - logger - ERROR - Ollama generation failed: 500 Server Error: Internal Server Error for url: http://localhost:11434/api/generate
+2025-07-18 14:56:26,931 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:56:26] "GET / HTTP/1.1" 200 -
+2025-07-18 14:57:00,370 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:57:00] "GET / HTTP/1.1" 200 -
+2025-07-18 14:57:35,214 - werkzeug - INFO - 127.0.0.1 - - [18/Jul/2025 14:57:35] "GET / HTTP/1.1" 200 -

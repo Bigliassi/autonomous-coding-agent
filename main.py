@@ -130,6 +130,9 @@ class AutonomousAgent:
             # Start workers
             await task_executor.start_workers()
             
+            # Start Tireless Reviewer workers
+            await task_executor.start_review_workers(worker_count=2)
+            
             # Start background tasks
             self._start_background_tasks()
             
@@ -394,6 +397,9 @@ class AutonomousAgent:
             
             # Stop workers
             await task_executor.stop_workers()
+            
+            # Stop Tireless Reviewer workers
+            await task_executor.stop_review_workers()
             
             # Cancel background tasks
             if self.state_save_task:

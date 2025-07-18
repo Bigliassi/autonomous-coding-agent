@@ -1,5 +1,6 @@
 import asyncio
 import uuid
+import os
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 import traceback
@@ -10,6 +11,8 @@ from test_runner import test_runner
 from git_manager import git_manager
 from logger import db_logger
 from config import config
+from tireless_reviewer import tireless_reviewer
+from repo_manager import repo_manager
 
 class TaskExecutor:
     """Manages worker coroutines that execute tasks from the queue."""
@@ -150,6 +153,23 @@ class TaskExecutor:
             db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'INFO', 
                               f'Processing task: {task.description[:100]}...')
             
+            # Step 0: Set up working directory based on task metadata
+            original_cwd = os.getcwd()
+            target_repo = None
+            
+            # Check if task specifies a target repository
+            if task.metadata and 'target_repo' in task.metadata:
+                target_repo = task.metadata['target_repo']
+                repo_path = repo_manager.get_repo_working_directory(target_repo)
+                
+                if repo_path and os.path.exists(repo_path):
+                    os.chdir(repo_path)
+                    db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'INFO', 
+                                      f'Working in repository: {target_repo} ({repo_path})')
+                else:
+                    db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'WARNING', 
+                                      f'Target repository {target_repo} not found, using default directory')
+            
             # Step 1: Generate code using AI model
             db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'INFO', 
                               'Step 1: Generating code with AI model')
@@ -214,12 +234,34 @@ class TaskExecutor:
                 'code_files': list(code_files.keys()) if code_files else [],
                 'model_stats': model_stats,
                 'test_result': test_result,
-                'commit_hash': commit_hash if 'commit_hash' in locals() else None
+                'commit_hash': commit_hash if 'commit_hash' in locals() else None,
+                'target_repo': target_repo,
+                'working_directory': os.getcwd()
             }
             
             db_logger.log_task_completed(task.task_id, worker_id, str(result_summary))
             db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'INFO', 
                               'Task completed successfully')
+            
+            # Step 5: Trigger Tireless Reviewer (non-blocking)
+            if tireless_reviewer.is_running:
+                db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'INFO', 
+                                  '🔍 Queuing task for Tireless Reviewer analysis')
+                # Note: Review will be picked up by the Tireless Reviewer workers automatically
+            
+            # Push changes to repository if configured
+            if target_repo and config.GIT_AUTO_PUSH:
+                try:
+                    push_result = await repo_manager.push_repo_changes(
+                        target_repo, 
+                        f"Task {task.task_id[:8]}: {task.description[:50]}"
+                    )
+                    if push_result['success']:
+                        db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'INFO', 
+                                          f'Pushed changes to repository {target_repo}')
+                except Exception as e:
+                    db_logger.log_event(task.task_id, worker_id, 'TASK_EXECUTOR', 'WARNING', 
+                                      f'Failed to push to repository {target_repo}: {e}')
             
             return True
             
@@ -228,6 +270,12 @@ class TaskExecutor:
             db_logger.logger.error(f"{error_msg}\n{traceback.format_exc()}")
             await self._handle_task_failure(worker_id, task, error_msg)
             return False
+        finally:
+            # Always restore original working directory
+            try:
+                os.chdir(original_cwd)
+            except Exception as e:
+                db_logger.logger.error(f"Failed to restore working directory: {e}")
     
     async def _handle_task_failure(self, worker_id: str, task: Task, error_message: str):
         """Handle task failure and determine if retry is needed."""
@@ -274,6 +322,64 @@ class TaskExecutor:
     async def get_queue_status(self) -> Dict[str, Any]:
         """Get current queue status."""
         return await task_queue.get_queue_stats()
+    
+    async def start_review_workers(self, worker_count: int = 2):
+        """Start Tireless Reviewer workers."""
+        await tireless_reviewer.start_review_workers(worker_count)
+    
+    async def stop_review_workers(self):
+        """Stop Tireless Reviewer workers."""
+        await tireless_reviewer.stop_review_workers()
+    
+    def get_review_status(self) -> Dict[str, Any]:
+        """Get Tireless Reviewer status."""
+        return tireless_reviewer.get_review_stats()
+    
+    async def add_task_with_repo(self, description: str, target_repo: str = None, priority: int = 0) -> Optional[str]:
+        """Add a task with a specific target repository."""
+        metadata = {}
+        if target_repo:
+            metadata['target_repo'] = target_repo
+        
+        task_data = {
+            'description': description,
+            'priority': priority,
+            'metadata': metadata
+        }
+        
+        return await task_queue.add_json_task(task_data)
+    
+    async def connect_github_repo(self, repo_url: str, alias: str = None, branch: str = "main") -> Dict[str, Any]:
+        """Connect to a GitHub repository."""
+        return await repo_manager.connect_to_github_repo(repo_url, alias, branch)
+    
+    async def connect_local_folder(self, folder_path: str, alias: str = None, initialize_git: bool = False) -> Dict[str, Any]:
+        """Connect to a local folder."""
+        return await repo_manager.connect_to_local_folder(folder_path, alias, initialize_git)
+    
+    def list_connected_repos(self) -> Dict[str, Dict[str, Any]]:
+        """List all connected repositories."""
+        return repo_manager.list_connected_repos()
+    
+    async def disconnect_repo(self, alias: str, remove_local: bool = False) -> Dict[str, Any]:
+        """Disconnect from a repository."""
+        return await repo_manager.disconnect_repo(alias, remove_local)
+    
+    async def scan_repo_for_tasks(self, alias: str) -> Dict[str, Any]:
+        """Scan a repository for potential tasks."""
+        return await repo_manager.scan_repo_for_tasks(alias)
+    
+    async def pull_repo_updates(self, alias: str) -> Dict[str, Any]:
+        """Pull updates from a repository."""
+        return await repo_manager.pull_repo_updates(alias)
+    
+    async def push_repo_changes(self, alias: str, commit_message: str = None) -> Dict[str, Any]:
+        """Push changes to a repository."""
+        return await repo_manager.push_repo_changes(alias, commit_message)
+    
+    async def force_review_task(self, task_id: str) -> Dict[str, Any]:
+        """Force review of a specific completed task by the Tireless Reviewer."""
+        return await tireless_reviewer.force_review_task(task_id)
     
     async def restart_worker(self, worker_id: str) -> bool:
         """Restart a specific worker."""

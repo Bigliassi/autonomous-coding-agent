@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, Response
 import asyncio
 import json
+import sqlite3
 from datetime import datetime
 from typing import Dict, Any
 import threading
@@ -317,6 +318,263 @@ def api_git_commits():
             'commits': commits
         })
     
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+# Repository Management Routes
+
+@app.route('/api/repositories')
+def api_list_repositories():
+    """List all connected repositories."""
+    try:
+        repos = async_helper.run_async(task_executor.list_connected_repos())
+        return jsonify({
+            'success': True,
+            'repositories': repos
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/repositories/connect', methods=['POST'])
+def api_connect_repository():
+    """Connect to a new repository."""
+    try:
+        data = request.json
+        if not data:
+            return jsonify({
+                'success': False,
+                'error': 'No data provided'
+            }), 400
+        
+        repo_type = data.get('type')  # 'github' or 'local'
+        
+        if repo_type == 'github':
+            repo_url = data.get('url')
+            alias = data.get('alias')
+            branch = data.get('branch', 'main')
+            
+            if not repo_url:
+                return jsonify({
+                    'success': False,
+                    'error': 'Repository URL required'
+                }), 400
+            
+            result = async_helper.run_async(
+                task_executor.connect_github_repo(repo_url, alias, branch)
+            )
+            
+        elif repo_type == 'local':
+            folder_path = data.get('path')
+            alias = data.get('alias')
+            initialize_git = data.get('initialize_git', False)
+            
+            if not folder_path:
+                return jsonify({
+                    'success': False,
+                    'error': 'Folder path required'
+                }), 400
+            
+            result = async_helper.run_async(
+                task_executor.connect_local_folder(folder_path, alias, initialize_git)
+            )
+            
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Invalid repository type. Use "github" or "local"'
+            }), 400
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/repositories/<alias>/disconnect', methods=['POST'])
+def api_disconnect_repository(alias):
+    """Disconnect from a repository."""
+    try:
+        data = request.json or {}
+        remove_local = data.get('remove_local', False)
+        
+        result = async_helper.run_async(
+            task_executor.disconnect_repo(alias, remove_local)
+        )
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/repositories/<alias>/scan')
+def api_scan_repository(alias):
+    """Scan repository for potential tasks."""
+    try:
+        result = async_helper.run_async(
+            task_executor.scan_repo_for_tasks(alias)
+        )
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/repositories/<alias>/pull', methods=['POST'])
+def api_pull_repository(alias):
+    """Pull updates from repository."""
+    try:
+        result = async_helper.run_async(
+            task_executor.pull_repo_updates(alias)
+        )
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/repositories/<alias>/push', methods=['POST'])
+def api_push_repository(alias):
+    """Push changes to repository."""
+    try:
+        data = request.json or {}
+        commit_message = data.get('commit_message')
+        
+        result = async_helper.run_async(
+            task_executor.push_repo_changes(alias, commit_message)
+        )
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/task/with-repo', methods=['POST'])
+def api_add_task_with_repo():
+    """Add a task targeting a specific repository."""
+    try:
+        data = request.json
+        if not data:
+            return jsonify({
+                'success': False,
+                'error': 'No task data provided'
+            }), 400
+        
+        description = data.get('description')
+        target_repo = data.get('target_repo')
+        priority = data.get('priority', 0)
+        
+        if not description:
+            return jsonify({
+                'success': False,
+                'error': 'Task description required'
+            }), 400
+        
+        task_id = async_helper.run_async(
+            task_executor.add_task_with_repo(description, target_repo, priority)
+        )
+        
+        if task_id:
+            return jsonify({
+                'success': True,
+                'task_id': task_id,
+                'message': f'Task added to queue for repository: {target_repo or "default"}'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to add task to queue'
+            }), 500
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+# Tireless Reviewer Routes
+
+@app.route('/api/tireless-reviewer/status')
+def api_tireless_reviewer_status():
+    """Get Tireless Reviewer status."""
+    try:
+        status = task_executor.get_review_status()
+        return jsonify({
+            'success': True,
+            'tireless_reviewer_status': status
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/tireless-reviewer/force/<task_id>', methods=['POST'])
+def api_force_tireless_review(task_id):
+    """Force review of a specific task by the Tireless Reviewer."""
+    try:
+        result = async_helper.run_async(
+            task_executor.force_review_task(task_id)
+        )
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/tireless-reviewer/results/<task_id>')
+def api_tireless_reviewer_results(task_id):
+    """Get Tireless Reviewer results for a specific task."""
+    try:
+        # Query Tireless Reviewer results from database
+        import sqlite3
+        
+        with sqlite3.connect(config.DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT review_type, issues_found, created_at
+                FROM tireless_review_results 
+                WHERE task_id = ?
+                ORDER BY created_at DESC
+            ''', (task_id,))
+            
+            results = []
+            for row in cursor.fetchall():
+                review_type, issues_found, created_at = row
+                results.append({
+                    'review_type': review_type,
+                    'issues_found': json.loads(issues_found),
+                    'created_at': created_at
+                })
+        
+        return jsonify({
+            'success': True,
+            'task_id': task_id,
+            'tireless_reviewer_results': results
+        })
+        
     except Exception as e:
         return jsonify({
             'success': False,

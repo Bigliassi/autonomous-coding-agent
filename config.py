@@ -37,6 +37,20 @@ class Config:
     # Logging Configuration
     LOG_LEVEL: str = os.getenv('LOG_LEVEL', 'INFO')
     MAX_LOG_ENTRIES: int = int(os.getenv('MAX_LOG_ENTRIES', '10000'))
+    
+    # Tireless Reviewer Configuration (24/7 Code Quality Guardian)
+    TIRELESS_REVIEWER_WORKERS: int = int(os.getenv('TIRELESS_REVIEWER_WORKERS', '2'))
+    REVIEW_INTERVAL: int = int(os.getenv('REVIEW_INTERVAL', '300'))  # 5 minutes
+    DEEP_REVIEW_INTERVAL: int = int(os.getenv('DEEP_REVIEW_INTERVAL', '1800'))  # 30 minutes
+    TIRELESS_REVIEWER_ENABLED: bool = os.getenv('TIRELESS_REVIEWER_ENABLED', 'True').lower() == 'true'
+    CREATE_FOLLOWUP_TASKS: bool = os.getenv('CREATE_FOLLOWUP_TASKS', 'True').lower() == 'true'
+    MAJOR_TASK_GRACE_PERIOD_DAYS: int = int(os.getenv('MAJOR_TASK_GRACE_PERIOD_DAYS', '7'))
+    
+    # Repository Management Configuration
+    REPOS_BASE_DIR: str = os.getenv('REPOS_BASE_DIR', './connected_repositories')
+    MAX_CONNECTED_REPOS: int = int(os.getenv('MAX_CONNECTED_REPOS', '10'))
+    AUTO_PULL_UPDATES: bool = os.getenv('AUTO_PULL_UPDATES', 'False').lower() == 'true'
+    AUTO_SCAN_REPOS: bool = os.getenv('AUTO_SCAN_REPOS', 'True').lower() == 'true'
 
 # Global config instance
 config = Config() 
