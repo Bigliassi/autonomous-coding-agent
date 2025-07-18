@@ -1,0 +1,5 @@
+2025-07-18 13:41:18,504 - logger - ERROR - Ollama availability check failed: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E5EEBB9750>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-07-18 13:41:23,025 - logger - ERROR - Ollama availability check failed: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E5EEBBA050>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-07-18 13:41:23,029 - logger - ERROR - No model handlers available!
+2025-07-18 13:41:24,377 - logger - INFO - Using existing Git repository at C:\Users\bigli\Desktop\BigAgent
+2025-07-18 13:41:48,522 - logger - INFO - Loaded 0 persisted tasks

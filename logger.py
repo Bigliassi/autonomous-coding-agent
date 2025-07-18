@@ -111,7 +111,8 @@ class DatabaseLogger:
             ''')
             
             conn.commit()
-            self.logger.info("Database initialized successfully")
+            # Logger will be available after this method completes
+            print("Database initialized successfully")
     
     def log_task_created(self, task_id: str, description: str, priority: int = 0) -> bool:
         """Log a new task creation."""

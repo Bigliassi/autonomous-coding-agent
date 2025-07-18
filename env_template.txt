@@ -1,0 +1,31 @@
+# Environment Configuration Template for Autonomous Coding Agent
+# Copy this content to a new file named ".env" in the project root
+
+# OpenAI Configuration (optional - for cloud AI)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Model Selection (choose one)
+MODEL_TYPE=ollama
+MODEL_NAME=codellama:7b-instruct
+
+# Alternative: Use OpenAI instead
+# MODEL_TYPE=openai
+# MODEL_NAME=gpt-3.5-turbo
+
+# GitHub Configuration (for auto-push)
+GITHUB_USERNAME=your_github_username
+GITHUB_TOKEN=your_github_personal_access_token
+
+# Agent Configuration
+WORKER_COUNT=3
+MAX_RETRIES=3
+FLASK_PORT=5000
+GIT_AUTO_PUSH=True
+LOG_LEVEL=INFO
+
+# Database
+DB_PATH=./db/agent_logs.sqlite
+
+# Checkpoint Configuration
+CHECKPOINT_DAYS=7
+STATE_SAVE_INTERVAL=3600 
