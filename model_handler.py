@@ -28,6 +28,44 @@ class OllamaHandler(BaseModelHandler):
         self.base_url = base_url or config.OLLAMA_BASE_URL
         self.model_name = model_name or config.MODEL_NAME
         self.api_url = f"{self.base_url}/api/generate"
+        
+        # Check if Ollama service is running, start if needed
+        self._ensure_ollama_running()
+    
+    def _ensure_ollama_running(self):
+        """Ensure Ollama service is running."""
+        try:
+            # Try to check if service is already running
+            response = requests.get(f"{self.base_url}/api/tags", timeout=2)
+            if response.status_code == 200:
+                return  # Service is running
+        except:
+            pass  # Service not running, try to start it
+        
+        try:
+            # Try to start Ollama service
+            import os
+            import subprocess
+            import platform
+            
+            if platform.system() == "Windows":
+                # Try common Windows installation paths
+                ollama_paths = [
+                    f"C:\\Users\\{os.environ.get('USERNAME', '')}\\AppData\\Local\\Programs\\Ollama\\ollama.exe",
+                    "C:\\Program Files\\Ollama\\ollama.exe",
+                    "C:\\Program Files (x86)\\Ollama\\ollama.exe"
+                ]
+                
+                for path in ollama_paths:
+                    if os.path.exists(path):
+                        # Start Ollama service in background
+                        subprocess.Popen([path, "serve"], 
+                                       creationflags=subprocess.CREATE_NO_WINDOW)
+                        import time
+                        time.sleep(3)  # Give it time to start
+                        break
+        except Exception as e:
+            db_logger.logger.warning(f"Could not auto-start Ollama: {e}")
     
     def is_available(self) -> bool:
         """Check if Ollama server is running and model is available."""
