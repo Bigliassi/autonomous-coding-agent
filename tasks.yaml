@@ -1,0 +1,33 @@
+# Sample tasks for the Autonomous Coding Agent
+# The agent will automatically detect changes to this file and load new tasks
+
+tasks:
+  - description: "Create a simple calculator function that can add, subtract, multiply, and divide two numbers. Include proper error handling for division by zero."
+    priority: 1
+    metadata:
+      category: "demo"
+      estimated_duration: "5 minutes"
+
+  - description: "Write a function to validate email addresses using regex. The function should return True for valid emails and False for invalid ones."
+    priority: 2
+    metadata:
+      category: "utility"
+      estimated_duration: "10 minutes"
+
+  - description: "Create a class to manage a simple todo list with methods to add tasks, mark tasks as complete, and list all tasks."
+    priority: 3
+    metadata:
+      category: "demo"
+      estimated_duration: "15 minutes"
+
+  - description: "Implement a function that reads a CSV file and returns the data as a list of dictionaries. Handle file not found errors gracefully."
+    priority: 1
+    metadata:
+      category: "file_processing"
+      estimated_duration: "10 minutes"
+
+  - description: "Create a simple REST API endpoint using FastAPI that returns a JSON response with system status information including current time and memory usage."
+    priority: 4
+    metadata:
+      category: "api"
+      estimated_duration: "20 minutes" 

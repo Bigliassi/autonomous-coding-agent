@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Coding Agent - Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #2a5298;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            background: #2a5298;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav a:hover {
+            background: #1e3c72;
+        }
+
+        .nav a.active {
+            background: #1e3c72;
+        }
+
+        .settings-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .settings-section {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .settings-section h3 {
+            color: #2a5298;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .setting-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .setting-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .setting-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.1);
+        }
+
+        .setting-select {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+        }
+
+        .setting-checkbox {
+            margin-right: 8px;
+        }
+
+        .setting-range {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .range-value {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #2a5298;
+            min-width: 30px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-available { background: #4CAF50; }
+        .status-unavailable { background: #F44336; }
+        .status-active { background: #2196F3; }
+
+        .model-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+
+        .model-name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .model-info {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: #2a5298;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3c72;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #bee5eb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffeaa7;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #f5c6cb;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .config-preview {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                flex-direction: column;
+            }
+            
+            .setting-input, .setting-select {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ System Settings</h1>
+            
+            <div class="nav">
+                <a href="/">Dashboard</a>
+                <a href="/logs">Logs</a>
+                <a href="/settings" class="active">Settings</a>
+            </div>
+        </div>
+
+        <div class="settings-container">
+            <!-- AI Model Settings -->
+            <div class="settings-section">
+                <h3>🧠 AI Model Configuration</h3>
+                
+                <div class="setting-group">
+                    <label class="setting-label">Active Model Type</label>
+                    <div class="setting-description">Select which AI model backend to use for code generation</div>
+                    <select class="setting-select" id="modelType">
+                        <option value="ollama" {{ 'selected' if current_settings.model_type == 'ollama' else '' }}>Ollama (Local)</option>
+                        <option value="openai" {{ 'selected' if current_settings.model_type == 'openai' else '' }}>OpenAI API</option>
+                        <option value="gpt4all" {{ 'selected' if current_settings.model_type == 'gpt4all' else '' }}>GPT4All (Local)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Model Name</label>
+                    <div class="setting-description">Specific model to use (e.g., codellama:7b-instruct for Ollama)</div>
+                    <input type="text" class="setting-input" id="modelName" value="{{ current_settings.model_name }}">
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Model Status</label>
+                    <div class="setting-description">Current availability of each model backend</div>
+                    
+                    {% if model_status %}
+                    {% for model_type, status in model_status.items() %}
+                    <div class="model-status">
+                        <span class="status-indicator status-{{ 'available' if status.available else 'unavailable' }}"></span>
+                        <span class="model-name">{{ model_type.title() }}</span>
+                        <span class="model-info">
+                            {{ 'Available' if status.available else 'Unavailable' }}
+                            {% if status.current %}<span style="color: #2196F3;">(Active)</span>{% endif %}
+                        </span>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Worker Settings -->
+            <div class="settings-section">
+                <h3>👷 Worker Configuration</h3>
+                
+                <div class="two-column">
+                    <div class="setting-group">
+                        <label class="setting-label">Worker Count</label>
+                        <div class="setting-description">Number of parallel workers processing tasks</div>
+                        <input type="range" class="setting-range" id="workerCount" min="1" max="10" value="{{ current_settings.worker_count }}">
+                        <span class="range-value" id="workerCountValue">{{ current_settings.worker_count }}</span>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Max Retries</label>
+                        <div class="setting-description">Maximum retry attempts for failed tasks</div>
+                        <input type="range" class="setting-range" id="maxRetries" min="0" max="10" value="{{ current_settings.max_retries }}">
+                        <span class="range-value" id="maxRetriesValue">{{ current_settings.max_retries }}</span>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Task Timeout (seconds)</label>
+                        <div class="setting-description">Maximum time allowed for each task</div>
+                        <input type="number" class="setting-input" id="taskTimeout" min="30" max="3600" value="{{ current_settings.task_timeout }}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Git Settings -->
+            <div class="settings-section">
+                <h3>📦 Git Configuration</h3>
+                
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <input type="checkbox" class="setting-checkbox" id="gitAutoPush" {{ 'checked' if current_settings.git_auto_push else '' }}>
+                        Auto-push to Remote
+                    </label>
+                    <div class="setting-description">Automatically push commits to the remote repository</div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">GitHub Integration</label>
+                    <div class="setting-description">Configure GitHub repository connection</div>
+                    <input type="text" class="setting-input" id="githubUsername" placeholder="GitHub username">
+                    <input type="password" class="setting-input" id="githubToken" placeholder="GitHub personal access token" style="margin-top: 10px;">
+                    <input type="text" class="setting-input" id="githubRepo" placeholder="Repository name" style="margin-top: 10px;">
+                    <button class="btn btn-primary" onclick="setupGitHub()" style="margin-top: 10px;">Setup GitHub Remote</button>
+                </div>
+            </div>
+
+            <!-- System Settings -->
+            <div class="settings-section">
+                <h3>🖥️ System Configuration</h3>
+                
+                <div class="two-column">
+                    <div class="setting-group">
+                        <label class="setting-label">Log Level</label>
+                        <div class="setting-description">Verbosity of system logging</div>
+                        <select class="setting-select" id="logLevel">
+                            <option value="DEBUG">DEBUG</option>
+                            <option value="INFO" selected>INFO</option>
+                            <option value="WARNING">WARNING</option>
+                            <option value="ERROR">ERROR</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Checkpoint Interval (days)</label>
+                        <div class="setting-description">How often to generate weekly summaries</div>
+                        <input type="number" class="setting-input" id="checkpointDays" min="1" max="30" value="7">
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">State Save Interval (seconds)</label>
+                        <div class="setting-description">How often to save system state for crash recovery</div>
+                        <input type="number" class="setting-input" id="stateSaveInterval" min="300" max="7200" value="3600">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration Preview -->
+            <div class="settings-section">
+                <h3>📝 Current Configuration</h3>
+                
+                <div class="setting-group">
+                    <label class="setting-label">Configuration Preview</label>
+                    <div class="setting-description">Current system configuration (read-only)</div>
+                    <div class="config-preview" id="configPreview">Loading...</div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Note:</strong> Some configuration changes require restarting the agent to take effect.
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="settings-section">
+                <h3>🚀 Actions</h3>
+                
+                <button class="btn btn-success" onclick="saveSettings()">Save Settings</button>
+                <button class="btn btn-secondary" onclick="resetToDefaults()">Reset to Defaults</button>
+                <button class="btn btn-warning" onclick="exportConfig()">Export Config</button>
+                <button class="btn btn-primary" onclick="testConnection()">Test Model Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status messages -->
+    <div id="statusMessages"></div>
+
+    <script>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupRangeSliders();
+            updateConfigPreview();
+            
+            // Add event listeners for live updates
+            document.querySelectorAll('input, select').forEach(element => {
+                element.addEventListener('change', updateConfigPreview);
+                element.addEventListener('input', updateConfigPreview);
+            });
+        });
+
+        // Setup range sliders
+        function setupRangeSliders() {
+            const workerCount = document.getElementById('workerCount');
+            const workerCountValue = document.getElementById('workerCountValue');
+            const maxRetries = document.getElementById('maxRetries');
+            const maxRetriesValue = document.getElementById('maxRetriesValue');
+
+            workerCount.addEventListener('input', function() {
+                workerCountValue.textContent = this.value;
+            });
+
+            maxRetries.addEventListener('input', function() {
+                maxRetriesValue.textContent = this.value;
+            });
+        }
+
+        // Update configuration preview
+        function updateConfigPreview() {
+            const config = {
+                model: {
+                    type: document.getElementById('modelType').value,
+                    name: document.getElementById('modelName').value
+                },
+                workers: {
+                    count: parseInt(document.getElementById('workerCount').value),
+                    max_retries: parseInt(document.getElementById('maxRetries').value),
+                    task_timeout: parseInt(document.getElementById('taskTimeout').value)
+                },
+                git: {
+                    auto_push: document.getElementById('gitAutoPush').checked
+                },
+                system: {
+                    log_level: document.getElementById('logLevel').value,
+                    checkpoint_days: parseInt(document.getElementById('checkpointDays').value),
+                    state_save_interval: parseInt(document.getElementById('stateSaveInterval').value)
+                }
+            };
+
+            document.getElementById('configPreview').textContent = JSON.stringify(config, null, 2);
+        }
+
+        // Save settings
+        async function saveSettings() {
+            const settings = {
+                model_type: document.getElementById('modelType').value,
+                model_name: document.getElementById('modelName').value,
+                worker_count: parseInt(document.getElementById('workerCount').value),
+                max_retries: parseInt(document.getElementById('maxRetries').value),
+                task_timeout: parseInt(document.getElementById('taskTimeout').value),
+                git_auto_push: document.getElementById('gitAutoPush').checked,
+                log_level: document.getElementById('logLevel').value,
+                checkpoint_days: parseInt(document.getElementById('checkpointDays').value),
+                state_save_interval: parseInt(document.getElementById('stateSaveInterval').value)
+            };
+
+            try {
+                const response = await fetch('/api/settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(settings)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage('Settings saved successfully!', 'success');
+                } else {
+                    showMessage('Error saving settings: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Reset to defaults
+        function resetToDefaults() {
+            if (!confirm('Reset all settings to defaults?')) return;
+
+            document.getElementById('modelType').value = 'ollama';
+            document.getElementById('modelName').value = 'codellama:7b-instruct';
+            document.getElementById('workerCount').value = '3';
+            document.getElementById('workerCountValue').textContent = '3';
+            document.getElementById('maxRetries').value = '3';
+            document.getElementById('maxRetriesValue').textContent = '3';
+            document.getElementById('taskTimeout').value = '300';
+            document.getElementById('gitAutoPush').checked = true;
+            document.getElementById('logLevel').value = 'INFO';
+            document.getElementById('checkpointDays').value = '7';
+            document.getElementById('stateSaveInterval').value = '3600';
+
+            updateConfigPreview();
+            showMessage('Settings reset to defaults', 'info');
+        }
+
+        // Export configuration
+        function exportConfig() {
+            updateConfigPreview();
+            const config = document.getElementById('configPreview').textContent;
+            
+            const blob = new Blob([config], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `agent-config-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            showMessage('Configuration exported', 'success');
+        }
+
+        // Test model connection
+        async function testConnection() {
+            const modelType = document.getElementById('modelType').value;
+            showMessage('Testing connection...', 'info');
+
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+
+                if (data.success && data.models && data.models[modelType] && data.models[modelType].available) {
+                    showMessage(`${modelType} model is available and ready!`, 'success');
+                } else {
+                    showMessage(`${modelType} model is not available. Check configuration.`, 'warning');
+                }
+            } catch (error) {
+                showMessage('Error testing connection: ' + error.message, 'error');
+            }
+        }
+
+        // Setup GitHub
+        async function setupGitHub() {
+            const username = document.getElementById('githubUsername').value.trim();
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('githubRepo').value.trim();
+
+            if (!username || !repo) {
+                showMessage('Please enter GitHub username and repository name', 'warning');
+                return;
+            }
+
+            showMessage('Setting up GitHub integration...', 'info');
+
+            // This would need to be implemented in the backend
+            showMessage('GitHub integration setup (backend implementation needed)', 'warning');
+        }
+
+        // Show status message
+        function showMessage(message, type) {
+            const container = document.getElementById('statusMessages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `alert alert-${type}`;
+            messageEl.textContent = message;
+            
+            container.appendChild(messageEl);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (messageEl.parentNode) {
+                    messageEl.parentNode.removeChild(messageEl);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
