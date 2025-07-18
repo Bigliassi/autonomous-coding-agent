@@ -125,7 +125,7 @@ class DatabaseLogger:
                     VALUES (?, ?, ?, 'pending', CURRENT_TIMESTAMP)
                 ''', (task_id, description, priority))
                 conn.commit()
-                self.log_event(task_id, 'SYSTEM', 'TASK_CREATED', f'Task created: {description[:100]}...')
+                self.log_event(task_id, 'SYSTEM', 'SYSTEM', 'INFO', f'Task created: {description[:100]}...')
                 return True
         except Exception as e:
             self.logger.error(f"Failed to log task creation: {e}")

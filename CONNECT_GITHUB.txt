@@ -1,0 +1,48 @@
+# 🐙 Connect to Your GitHub Repository
+
+## Step 1: Add Your GitHub Repository as Remote
+
+Replace YOUR_USERNAME with your actual GitHub username:
+
+git remote add origin https://github.com/YOUR_USERNAME/autonomous-coding-agent.git
+
+## Step 2: Push Your Code to GitHub
+
+git push -u origin master
+
+## Step 3: Verify Connection
+
+git remote -v
+
+## Step 4: Configure Agent for Auto-Push
+
+1. Get your GitHub Personal Access Token:
+   - Go to: https://github.com/settings/tokens
+   - Click "Generate new token (classic)"
+   - Select scopes: repo, workflow
+   - Copy the token
+
+2. Edit local_config.py:
+   - Replace "your_github_username" with your actual username
+   - Replace "your_github_token" with your actual token
+
+## Step 5: Test the Complete System
+
+# Start the agent
+venv\Scripts\python.exe main.py
+
+# In another terminal, add a task:
+venv\Scripts\python.exe cli.py "Create a function to calculate fibonacci numbers"
+
+# Check the dashboard:
+# Open http://127.0.0.1:5000 in your browser
+
+## What Happens Next
+
+Once connected, every successful task will:
+1. Generate code using Ollama (phi3:3.8b)
+2. Run automated tests
+3. Commit to your local Git repository
+4. Push to your GitHub repository automatically
+
+Your autonomous coding agent will be fully operational! 🚀 
