@@ -28,10 +28,10 @@ class LocalConfig:
     FLASK_DEBUG = False
     
     # Git Configuration  
-    GIT_BRANCH = "main"
+    GIT_BRANCH = "master"  # Using master branch as created
     GIT_AUTO_PUSH = True  # Enable auto-push to GitHub
-    GITHUB_USERNAME = "your_github_username"  # Replace with your username
-    GITHUB_TOKEN = "your_github_token"  # Replace with your token
+    GITHUB_USERNAME = "Bigliassi"  # Your GitHub username
+    GITHUB_TOKEN = "your_github_token"  # Replace with your Personal Access Token
     
     # System Performance
     CHECKPOINT_DAYS = 7
